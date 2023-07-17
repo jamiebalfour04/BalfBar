@@ -1,0 +1,836 @@
+//Notes:
+//1. You may choose to use a logo-base, which is basically a continuing border around a curved logo.
+//   You can hide it completely by setting $logo_base_display to none. Both darkmode and lightmode provide
+//   the same variables.
+
+
+//Default options
+
+//The maximum before it switches to desktop
+$mobile_max_width: 1100px;
+//Whether or not to include the CSS for the brand
+
+//Since we have clearfix enabled on the menu, we can simply leave it at auto
+$menu_height: 47px;
+//Giving this a value of 'none' will remove the property
+$font_family: 'none';
+//Font size for dropdowns
+$dropdown_font_size: 14px;
+//Padding on the brand
+$desktop_item_left_padding: 150px;
+$desktop_menu_width : none;
+
+$dropdown_min_width: 200px;
+$dropdown_max_width: none;
+
+//You will need to play with this until correct, since this depends on the font size too
+$top_level_item_padding: 13.5px 15px;
+
+
+//Default only
+$menu_opacity: 1;
+$foreground_color: #555555;
+$background_color1: #f8f8f8;
+//Optional. Insert 'none' to remove the reference. This will allow older browsers to have a fallback to $background_color1
+$background_color2: rgba(248, 248, 248, 0.95);
+$border_bottom_color: transparent;
+$border_bottom_height: 0;
+
+//Optional. Specify the background colour of the mobile menu for sidebar and push menus. If none is set, it will be a darkened version of the $background_color1 variable
+$mobile_menu_background : 'none';
+//Menu button in mobile
+$menu_button_background: transparent;
+$menu_button_color: #000;
+
+//Item hover, open and active colours
+$hover_foreground_color: #555555;
+$hover_background_color: #cccccc;
+$open_foreground_color : #555555;
+$open_background_color : #cccccc;
+$active_foreground_color: #555555;
+
+//Top level items can differ from items inside menus
+$top_level_hover_background_color:transparent;
+$top_level_hover_foreground_color:inherit;
+$top_level_open_background_color: transparent;
+$top_level_open_foreground_color: inherit;
+$top_level_item_bottom_line_height: 5px;
+$top_level_item_hover_bottom_line_color: 'none';
+$top_level_item_open_bottom_line_color: 'none';
+$top_level_item_active_bottom_line_color:'none';
+
+//Dropdown and megamenu specifics
+$dropdown_foreground_color: #000000;
+$dropdown_background_color: #eeeeee;
+
+//Set to none to remove for each of the following group
+$dropdown_radius: 'none';
+$dropdown_padding : 'none';
+$dropdown_border: 0 #fff solid;
+$dropdown_box_shadow : 0 6px 12px #aaaaaa;
+
+//Dropdown and megamenu items
+$dropdown_item_background_color: transparent;
+$dropdown_item_margin: 0;
+$dropdown_item_padding: 10px 20px;
+$dropdown_item_height: 'none';
+
+//Megamenu specifics
+$megamenu-item-margin: 0 5px;
+$megamenu_column_min_width: 150px;
+$megamenu_column_max_width: 200px;
+$megamenu_max_height: 300px;
+$megamenu_hover_foreground_color: #fff;
+$make_mobile_megamenu_title_uppercase: true;
+
+
+$item_container_border: 0 #fff solid;
+$item_container_box_shadow : 0 3px 4px #000;
+//Left or right
+$item_container_position : left;
+$item_container_margin : 0;
+
+//If an item is a separator
+$separator_border : 1px #aaa solid;
+
+//Show right_zone at this width:
+$right_zone_min_threshold: 'none';
+$right_zone_max_threshold: 'none';
+
+
+/*Do not modify anything beyond here!*/
+//If you want a fixed menu, wrap the balfbar class in a fixed_menu class. More at http://www.jamiebalfour.scot/
+.balfbar.fixed_menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.balfbar *{
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -o-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+.balfbar {
+  height: $menu_height;
+  position: relative;
+  @if $font_family != 'none' {
+    font-family: $font_family;
+  }
+  color:$foreground_color;
+  @if($border_bottom_height != 0){
+    border-bottom: $border_bottom_height $border_bottom_color solid;
+  }
+  z-index: 1000;
+}
+.balfbar_no_overflow,
+.balfbar_no_overflow body{
+	overflow: hidden;
+}
+.balfbar_pushmenu_container{
+	position: relative;
+}
+.balfbar .menu{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  @if($menu_opacity != 1){
+    opacity: $menu_opacity;
+  }
+  background: $background_color1;
+  @if $background_color2 != 'none'{
+      background: $background_color2;
+  }
+}
+.balfbar .menu:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.balfbar .menu > .brand {
+  display: table;
+  color: $foreground_color;
+  font-size: 16px;
+  font-weight: 700;
+  float: left;
+  margin-right:3px;
+  height: $menu_height;
+}
+
+.balfbar .menu > .brand img{
+  height: $menu_height - 7;
+  width: auto;
+  min-height: $menu_height - 7;
+  max-height: $menu_height - 7;
+}
+
+.balfbar .menu > .brand a{
+  display: block;
+  float: left;
+}
+
+.balfbar .menu > .brand > .text {
+  padding: 0 5px;
+}
+
+.balfbar .menu > .brand > *{
+  display: table-cell;
+  vertical-align: middle;
+}
+.balfbar .menu_button {
+  float:right;
+  height: $menu_height;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 7px;
+  text-align: center;
+  min-width: 40px;
+  background: $menu_button_background;
+  color: $menu_button_color;
+  position: relative;
+  display: table;
+}
+.balfbar .menu_button > * {
+  display: table-cell;
+  vertical-align: middle;
+}
+.balfbar .menu_button .text{
+  text-transform: uppercase;
+}
+.balfbar .menu_button > .select{
+  width: 40px;
+}
+.balfbar .menu_button > .select div div {
+  background: $menu_button_color;
+  height: 3px;
+  margin: 3px 6px;
+  margin-top: 0;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  -ms-border-radius: 1px;
+  -o-border-radius: 1px;
+  border-radius: 1px;
+  position: relative;
+}
+.balfbar .menu ul.items {
+  margin: 0;
+  padding: 0;
+}
+.balfbar .menu ul.items *{
+  -moz-text-size-adjust:110%;
+  -webkit-text-size-adjust:110%;
+  -ms-text-size-adjust:110%;
+  -o-text-size-adjust:110%;
+  text-size-adjust:110%;
+}
+.balfbar .menu ul.items li {
+  list-style: none;
+  cursor: pointer;
+  position:relative;
+}
+.balfbar .menu ul.items > li > a,
+.balfbar .menu ul.dropdown > li > a,
+.balfbar .menu div.megamenu ul > li > a {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  color: $foreground_color;
+}
+.balfbar .menu ul.items li.full_width{
+  position: static;
+}
+.balfbar .menu ul.items li.full_width .megamenu{
+  left: 0;
+  right:0;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+.balfbar div.megamenu ul{
+  margin: 0;
+  padding: 0;
+  max-height: $megamenu_max_height;
+  overflow: auto;
+}
+.balfbar .menu ul.items .dropdown li.open > a {
+  @if($open_background_color != 'none'){
+    background: $open_background_color;
+  }
+  @if($open_foreground_color != 'none'){
+    color: $open_foreground_color;
+  }
+}
+@if($top_level_open_background_color != $open_background_color or $top_level_open_foreground_color != $open_foreground_color){
+  .balfbar .menu ul.items > li.open > a {
+    @if($top_level_open_background_color != 'none'){
+      background: $top_level_open_background_color;
+    }
+    @if($top_level_open_foreground_color != 'none'){
+      color: $top_level_open_foreground_color;
+    }
+  }
+}
+.balfbar .menu ul.items .megamenu li.open > a span {
+  color:$megamenu_hover_foreground_color;
+}
+.balfbar .menu ul.items > li.hover > a,
+.balfbar .menu ul.items .dropdown li.hover > a,
+.balfbar:not(.loaded) .menu ul.items .dropdown li:hover > a{
+  background: $hover_background_color;
+  color: $hover_foreground_color;
+}
+@if($top_level_hover_background_color != $hover_background_color or $top_level_hover_foreground_color != $hover_foreground_color){
+  .balfbar .menu ul.items > li.hover > a,
+  .balfbar:not(.loaded) .menu ul.items > li:hover > a{
+    @if($top_level_hover_background_color != 'none'){
+      background: $top_level_hover_background_color;
+    }
+    @if($top_level_hover_foreground_color != 'none'){
+      color: $top_level_hover_foreground_color;
+    }
+
+  }
+}
+.balfbar .menu ul.items > li > a span {
+  display: inline-block;
+}
+.balfbar div.megamenu div.title{
+  color: $foreground_color;
+}
+.balfbar .menu ul.items ul.dropdown > li > a,
+.balfbar .menu ul.items div.megamenu ul > li > a,
+.balfbar div.megamenu div.title {
+  padding: $dropdown_item_padding;
+  white-space: nowrap;
+  @if($dropdown_item_height != 'none'){
+    height: $dropdown_item_height;
+  }
+}
+.balfbar ul.items ul.dropdown,
+.balfbar ul.items div.megamenu  {
+  display: none;
+  padding:0;
+  font-size: $dropdown_font_size;
+}
+.balfbar ul.items > li.active > a{
+  font-weight:700;
+  color: $active_foreground_color;
+}
+.balfbar .menu ul.items .open > .dropdown{
+  display: block;
+}
+.balfbar ul.dropdown > li > a > img,
+.balfbar ul.dropdown > li > a > .menu_img{
+  float: left;
+  width: 34px;
+  height: 34px;
+  margin-left: -5px;
+  margin-top: -8px;
+  margin-right: 15px;
+}
+.balfbar .divider{
+  border-bottom:1px #ddd solid;
+}
+.balfbar *::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+  background: #000;
+}
+.balfbar ul.items li > a .icon {
+  font-size: $dropdown_font_size;
+  display: inline-block;
+  margin-right: 5px;
+}
+.balfbar ul.items li > a img.icon{
+  height: $dropdown_font_size;
+}
+.balfbar ul.items li > a *{
+  vertical-align: middle;
+}
+//Comment this out to support IE8
+@media only screen and (min-width: $mobile_max_width + 0.1) {
+
+  .balfbar .menu_button, .balfbar .menu > .brand {
+      text-align:left;
+  }
+  .balfbar .menu ul.items li > ul.dropdown > li ul.dropdown.left_menu {
+    left:auto !important;
+    right:100%;
+  }
+  .balfbar .menu ul.items > li > a {
+    padding: $top_level_item_padding;
+  }
+  .balfbar .menu ul.dropdown > li > a,
+  .balfbar .menu div.megamenu ul > li > a {
+    background: $dropdown_item_background_color;
+    @if($dropdown_item_margin != 'none') {
+      margin: $dropdown_item_margin;
+    }
+  }
+  .balfbar .menu .item_holder {
+    @if ($desktop_item_left_padding != 'none'){
+      padding-left: $desktop_item_left_padding;
+    }
+    opacity:1 !important;
+    @if ($desktop_menu_width != 'none'){
+      width: $desktop_menu_width;
+      margin: auto;
+    }
+  }
+  .balfbar .menu ul.items > li > a .icon{
+    display: none;
+  }
+  .balfbar ul.items li > a .icon {
+    font-size: $dropdown_font_size * 2;
+  }
+  .balfbar ul.items li > a img.icon{
+    height: $dropdown_font_size * 2;
+  }
+  .balfbar .menu ul.items {
+    margin: $item_container_margin;
+    padding: 0;
+    //max-height:0;
+    float: $item_container_position;
+  }
+
+  .balfbar .menu_button {
+    display:none;
+  }
+  .balfbar .menu ul.items > li {
+    float: left;
+  }
+  .balfbar .menu ul.items > li {
+    position: relative;
+  }
+  .balfbar .menu ul.items > li > ul.dropdown,
+  .balfbar .menu ul.items > li > div.megamenu {
+    position:absolute;
+    top: $menu_height - $border_bottom_height;
+    left: 0;
+    z-index:-1;
+  }
+
+  .balfbar.top_down ul.items{
+    max-height: 250px;
+    overflow: auto;
+  }
+
+  .balfbar.top_down .brand,
+  .balfbar.top_down .menu ul.items,
+  .balfbar.top_down .menu ul.items > li {
+    float: none;
+  }
+
+  .balfbar.desktop_sidebar{
+    height: auto;
+  }
+
+  .balfbar.desktop_sidebar .brand,
+  .balfbar.desktop_sidebar .item_holder > .items{
+    float: none;
+  }
+
+  .balfbar.desktop_sidebar .brand{
+    padding: $top_level_item_padding;
+  }
+
+  .balfbar.desktop_sidebar .menu ul.items li > ul.dropdown,
+  .balfbar.desktop_sidebar .menu ul.items li > .megamenu{
+    position: static;
+  }
+
+  .balfbar.desktop_sidebar .menu ul.items > li{
+    float:none;
+  }
+
+  .balfbar.top_down .menu ul.items>li>ul.dropdown,
+  .balfbar.top_down .menu ul.items>li>div.megamenu {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    min-width:100%;
+    margin: 0;
+    border:0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+  }
+
+  @if $dropdown_padding != 'none' {
+    .balfbar .menu ul.items ul.dropdown,
+    .balfbar .menu ul.items div.megamenu {
+      padding: $dropdown_padding;
+    }
+  }
+  @if($megamenu-item-margin != 'none' ) {
+  .balfbar .menu ul.items div.megamenu ul > li > a {
+      @if($megamenu-item-margin != 'none' ){
+        margin: $megamenu-item-margin;
+      }
+  }
+  }
+  @if($top_level_item_bottom_line_height != 'none'){
+
+    .balfbar ul.items > li.hover:after,
+    .balfbar:not(.loaded) ul.items > li:hover:after,
+    .balfbar ul.items > li.active:after,
+    .balfbar ul.items > li.open:after {
+      position: absolute;
+      left: 0;
+      right:0;
+      bottom:0;
+      height:$top_level_item_bottom_line_height;
+      content: " ";
+      z-index: 26;
+    }
+
+    @if ($top_level_item_hover_bottom_line_color != 'none'){
+      .balfbar ul.items > li.hover:after,
+      .balfbar:not(.loaded) ul.items > li:hover:after {
+        background: $top_level_item_hover_bottom_line_color;
+      }
+    }
+    @if ($top_level_item_open_bottom_line_color != 'none'){
+      .balfbar ul.items > li.open:after {
+        background: $top_level_item_open_bottom_line_color;
+      }
+    }
+    @if ($top_level_item_active_bottom_line_color != 'none'){
+      .balfbar ul.items > li.active:after{
+        background: $top_level_item_active_bottom_line_color;
+      }
+    }
+  }
+
+  .balfbar .menu ul.items .open > div.megamenu{
+    display:table;
+  }
+  .balfbar .menu div.megamenu > ul > li{
+    display:table-cell;
+    vertical-align: top;
+    padding: 5px;
+    cursor:default;
+    @if($megamenu_column_min_width != 'none'){
+      min-width: $megamenu_column_min_width;
+    }
+    @if($megamenu_column_max_width != 'none'){
+      max-width: $megamenu_column_max_width;
+    }
+  }
+  .balfbar .menu div.megamenu > .bottom{
+    display: block;
+    background: $background_color1;
+    color: $foreground_color;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .balfbar div.megamenu{
+    @if($dropdown_box_shadow != 'none'){
+      -moz-box-shadow: $dropdown_box_shadow;
+      -webkit-box-shadow: $dropdown_box_shadow;
+      -ms-box-shadow: $dropdown_box_shadow;
+      -o-box-shadow: $dropdown_box_shadow;
+      box-shadow: $dropdown_box_shadow;
+    }
+    @if($dropdown_border != 'none'){
+      border: $dropdown_border;
+    }
+    background: $dropdown_background_color;
+    position: absolute;
+    padding: 0;
+  }
+  .balfbar div.megamenu{
+    margin-left: -100px;
+  }
+  .balfbar div.megamenu.no_shift{
+    margin-left:0;
+  }
+  .balfbar div.megamenu.left_shift{
+    margin-left:-150px;
+  }
+  .balfbar div.megamenu.big_left_shift{
+    margin-left:-250px;
+  }
+  .balfbar div.megamenu.right_shift{
+    margin-left:0;
+  }
+  .balfbar .menu ul.items li > ul.dropdown > li ul.dropdown {
+    position:absolute;
+    left:100%;
+  }
+  .balfbar .menu ul.items li > ul.dropdown > li ul.dropdown:not(.modified_top){
+    margin-top:-40px;
+  }
+
+  .balfbar ul.dropdown {
+    padding: 0;
+    @if($dropdown_min_width != 'none'){
+      min-width: $dropdown_min_width;
+    }
+    @if($dropdown_max_width != 'none'){
+      max-width: $dropdown_max_width;
+    }
+    background: $dropdown_background_color;
+    @if($dropdown_border != 'none'){
+      border: $dropdown_border;
+    }
+    @if($dropdown_box_shadow != 'none'){
+      -moz-box-shadow: $dropdown_box_shadow;
+      -webkit-box-shadow: $dropdown_box_shadow;
+      -ms-box-shadow: $dropdown_box_shadow;
+      -o-box-shadow: $dropdown_box_shadow;
+      box-shadow: $dropdown_box_shadow;
+    }
+    @if($dropdown_radius != 'none') {
+      -moz-border-radius: $dropdown_radius;
+      -webkit-border-radius: $dropdown_radius;
+      -ms-border-radius: $dropdown_radius;
+      -o-border-radius: $dropdown_radius;
+      border-radius: $dropdown_radius;
+    }
+  }
+  .balfbar ul.dropdown,
+  .balfbar div.megamenu,
+   .balfbar .menu ul li a{
+    color: $dropdown_foreground_color;
+  }
+
+  .balfbar .menu ul.items > li > div.megamenu img.preview{
+    display: block;
+  }
+
+  .balfbar .scrollable{
+    overflow:auto;
+  }
+}
+
+.balfbar .menu ul.item > li:hover > a .icon{
+  color:#fff;
+}
+.balfbar .menu ul.items li.hover > a .icon,
+.balfbar:not(.loaded) .menu ul.items li:hover > a .icon {
+  color: inherit !important;
+}
+//Comment this out if you want to support IE8.
+@media only screen and (max-width: $mobile_max_width) {
+  .balfbar{
+    opacity:1 !important;
+  }
+  .balfbar .menu ul.items{
+    overflow: auto;
+    overflow-x:hidden;
+  }
+  @if ($make_mobile_megamenu_title_uppercase){
+  .balfbar ul.items div.megamenu .title{
+    text-transform: uppercase;
+  }
+  }
+
+  .balfbar div.megamenu ul ul{
+    overflow: hidden;
+  }
+  .balfbar.mobile_pushmenu .menu ul.items,
+  .balfbar.mobile_sidebar .menu ul.items, {
+    height: 100%;
+  }
+  .balfbar .menu > .brand {
+    position: absolute;
+    left: 0;
+  }
+  .balfbar .menu ul.items {
+    -moz-text-size-adjust: 130%;
+    -webkit-text-size-adjust: 130%;
+    -ms-text-size-adjust: 130%;
+    -o-text-size-adjust: 130%;
+    text-size-adjust: 130%;
+  }
+  .balfbar .menu ul.items > li.hover > a,
+  .balfbar .menu .megamenu li.hover > a,
+  .balfbar:not(.loaded) .menu ul.items > li:hover > a{
+    background: $hover_background_color;
+    color: $hover_foreground_color;
+  }
+  .balfbar .menu ul.items > li.open > a,
+  .balfbar .menu .megamenu li.open > a, {
+    @if($open_background_color != 'none'){
+      background: $open_background_color;
+    }
+    @if($open_foreground_color != 'none'){
+      color: $open_foreground_color;
+    }
+  }
+
+  .balfbar.mobile_dropdown .menu .item_holder{
+    overflow-y:auto;
+  }
+
+  .balfbar .menu .item_holder,
+  .balfbar.mobile_sidebar .menu .item_holder > ul,
+  .balfbar.mobile_pushmenu .menu .item_holder > ul{
+    @if $mobile_menu_background == 'none' {
+      background: darken($background_color1, 20%);
+      @if $background_color2 != 'none'{
+        background: darken($background_color2, 20%);
+      }
+    } @else{
+      background: $mobile_menu_background;
+    }
+  }
+
+  .balfbar .menu .item_holder {
+    @if $item_container_box_shadow != 'none'{
+      -moz-box-shadow: $item_container_box_shadow;
+      -webkit-box-shadow: $item_container_box_shadow;
+      -ms-box-shadow: $item_container_box_shadow;
+      -o-box-shadow: $item_container_box_shadow;
+      box-shadow: $item_container_box_shadow;
+    }
+  }
+
+  .balfbar.mobile_dropdown .menu .item_holder{
+    position: absolute;
+    right: 0;
+    left: 0;
+    height:0;
+    border-bottom: $item_container_border;
+    max-height: 300px;
+    z-index: -1;
+    top:0;
+  }
+
+  .balfbar.mobile_sidebar .menu .item_holder{
+    position: fixed;
+    bottom:0;
+    left: -20%;
+    opacity: 0;
+    width:70%;
+    border-right: $item_container_border;
+    z-index: 1000;
+    top:$menu_height;
+    max-width:250px;
+    right:0;
+    display: none;
+  }
+
+  .balfbar.mobile_pushmenu .menu .item_holder{
+    position: fixed;
+    bottom:0;
+    left: -250px;
+    border-right: $item_container_border;
+    z-index: 1000;
+    top:$menu_height;
+    width:250px;
+    display: none;
+  }
+
+  .balfbar.out.mobile_sidebar .menu .item_holder,
+  .balfbar.out.mobile_pushmenu .menu .item_holder{
+    display: block;
+  }
+
+  .balfbar .menu ul.items .open > .megamenu{
+    display: block;
+  }
+
+  //A way to test the media query, works with older browsers too
+  .balfbar .media_tester{
+    display: none;
+  }
+
+  /*
+    This is a set of items that will appear after loading the menu fully
+  */
+
+  .balfbar .menu ul.items li{
+    border-bottom: $separator_border;
+  }
+  .balfbar .menu ul.items > li > a > span{
+    padding: 10px 8px
+  }
+  .balfbar.mobile_sidebar .mask,
+  .balfbar.mobile_pushmenu .mask{
+    background: #222;
+    opacity: 0.8;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display:none;
+  }
+  .balfbar.mobile_sidebar.out .mask,
+  .balfbar.mobile_pushmenu.out .mask{
+    display:block;
+  }
+  .balfbar .menu .item_holder .items::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+    background: transparent;
+  }
+  .balfbar ul.items > li .megamenu{
+    padding: 0;
+    margin: 0;
+  }
+  .balfbar ul.items > li > a span {
+    padding: 10px 15px;
+  }
+ .balfbar .menu ul.items > li > ul.dropdown li > a,
+ .balfbar .menu ul.items > li > div.megamenu li > a{
+   padding-left: 40px;
+  }
+ .balfbar .menu ul.items > li > ul.dropdown li > ul.dropdown > li > a{
+    padding-left: 60px;
+  }
+  .balfbar .menu ul.items > li > ul.dropdown li > ul.dropdown > li > ul.dropdown > li > a{
+    padding-left: 80px;
+  }
+  .balfbar .menu ul.items > li > div.megamenu img.preview {
+    display:none;
+  }
+}
+
+@if($right_zone_min_threshold == 'none' and $right_zone_max_threshold == 'none'){
+
+  .balfbar .right_zone {
+    float:right;
+    height: 100%;
+  }
+  .balfbar.fixed_menu .right_zone {
+    display:block;
+  }
+}
+@if($right_zone_min_threshold != 'none' and $right_zone_max_threshold != 'none'){
+  @media only screen and (min-width: $right_zone_min_threshold) and (max-width: $right_zone_max_threshold){
+    .balfbar.fixed_menu .right_zone {
+      display:block;
+    }
+  }
+} @else if($right_zone_min_threshold != 'none' and $right_zone_max_threshold == 'none'){
+  @media only screen and (min-width: $right_zone_min_threshold){
+    .balfbar.fixed_menu .right_zone {
+      display:block;
+    }
+  }
+} @else if($right_zone_min_threshold == 'none' and $right_zone_max_threshold != 'none'){
+  @media only screen and (max-width: $right_zone_max_threshold){
+    .balfbar.fixed_menu .right_zone {
+      display:block;
+    }
+  }
+}
+
+/*No JS*/
+
+.balfbar:not(.loaded) ul.items li:hover > ul.dropdown,
+.balfbar:not(.loaded) ul.items li:hover > div.megamenu {
+  margin-top: -1px;
+  display: block;
+}
