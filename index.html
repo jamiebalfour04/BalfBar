@@ -1,0 +1,552 @@
+<!doctype html>
+<html>
+    <head>
+        <title>BalfBar</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+        <!--<link rel="stylesheet" href="https://www.jamiebalfour.com/assets/shared/css/?q=shared" type="text/css">-->
+        <!--<script src="jquery.js"></script>-->
+        <style>
+            @import 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700';
+            html, body {
+                margin: 0;
+                font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', Helvetica, sans-serif;
+                font-weight: 300;
+                background: #ddd !important;
+            }
+            #main_container {
+                margin: 0 auto;
+                max-width: 1200px;
+                padding: 65px 30px;
+                background: #fff !important;
+            }
+            .no_scroll {
+                overflow: hidden;
+            }
+            h2:after {
+                content: "" !important;
+            }
+            .code {
+                margin: 15px 0;
+                background: #eee;
+                border: 1px solid #DDD
+            }
+            .code > .title {
+                background-color: #384047;
+                font-weight: 300;
+                color: #ffa600;
+                font-size: 120%;
+                padding: 2px 10px;
+                position: relative;
+                z-index: 2;
+                margin: -1px
+            }
+            .code .sample, .text_sample {
+                font-size: 16px;
+                margin: 0;
+                text-align: left;
+                white-space: nowrap;
+                color: #000;
+                max-height: 390px;
+                overflow: auto;
+                -webkit-overflow-scrolling: touch;
+                font-weight: 400;
+                padding: 0
+            }
+            .code .sample .keyword, .code_keyword, code .keyword, code.keyword {
+                color: #07a
+            }
+            .code .sample .type, .code_type, code .type, code.type {
+                color: #DD4A68
+            }
+            .code .sample .comment, .code_comment, code .comment, code.comment {
+                color: #f60
+            }
+            .code .sample .string, .code_string, code .string, code.string {
+                color: #690
+            }
+            .code .sample .special, .code_special, code .special, code.special {
+                color: #f06
+            }
+            .code .sample .var, .code_var, code .var, code.var, var {
+                color: #a0a
+            }
+            .code pre {
+                counter-reset: line_numbering;
+                margin: 0;
+                font-size: 16px;
+                display: table;
+                min-width: 100%;
+                -webkit-text-shadow: 0 1px #fff;
+                -ms-text-shadow: 0 1px #fff;
+                -o-text-shadow: 0 1px #fff;
+                white-space: pre;
+                word-spacing: normal;
+                word-break: normal;
+                word-wrap: normal;
+                -moz-tab-size: 4;
+                -webkit-tab-size: 4;
+                -ms-tab-size: 4;
+                -o-tab-size: 4;
+                tab-size: 4;
+                line-height: 1.5
+            }
+            .code pre .line {
+                padding: 0 0 0 5px;
+                position: relative;
+                margin-left: 2em;
+                min-height: 18px;
+                display: block
+            }
+            .code pre .line.single {
+                padding: 15px 5px
+            }
+            .code pre .line.single:before {
+                padding: 15px 0
+            }
+            .code pre .line:before {
+                content: counter(line_numbering);
+                counter-increment: line_numbering;
+                width: 1.75em;
+                padding: 0 .25em 0 0;
+                position: absolute;
+                left: -2em;
+                color: #aaa;
+                text-align: right;
+                bottom: 0;
+                top: 0;
+                border-right: 1px #aaa solid;
+                background: #eee
+            }
+            .code .sample .line.important, .code pre .line.important:before {
+                background: rgba(0, 150, 0, .3);
+                color: #000
+            }
+            .code pre .line:nth-child(even) {
+                background: #f0f0f0
+            }
+        </style>
+
+        <script src="balfbar.js"></script>
+        <link href="balfbar.css" rel="stylesheet" type="text/css">
+        <script>
+			window.onload = function() {
+				jQuery(".code pre").each(function() {
+					var e = jQuery(this).html(), l = e.split("\n"), n = "", t = l.length;
+					("" == l[l.length] ||
+					void 0 == l[l.length]) && ( t = l.length - 1);
+					var a = "";
+					1 == t && ( a = " single");
+					for (var s = 0; t > s; s++)
+						n += 0 !== l[s].lastIndexOf('<span class="line', 0) ? '<span class="line' + a + '">' + l[s].replace(/\t/g, "   ") + "</span>" : l[s].replace(/\t/g, "   ");
+					jQuery(this).html(n)
+				});
+			};
+        </script>
+    </head>
+    <body>
+        <div class="balfbar mobile_sidebar desktop_sidebar">
+            <div class="menu">
+                <div class="brand">
+                    <span>jamiebalfour.com</span>
+                </div>
+                <div class="menu_button">
+                    <span class="text">
+                        Menu
+                    </span>
+                    <div class="select">
+                      <div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="item_holder">
+                    <ul class="items">
+                        <li>
+                            <a>
+                            <span>
+                                Link 1
+                            </span></a>
+                        </li>
+                        <li>
+                            <a>
+                            <span>
+                                Link 2
+                            </span></a>
+                        </li>
+                        <li>
+                            <a>
+                            <span>
+                                Dropdown 1
+                            </span></a>
+                            <ul class="dropdown">
+                                <li>
+                                    <a>Next</a>
+                                    <ul class="dropdown">
+                                        <li>
+                                            <a>Menu Item 1</a>
+                                        </li>
+                                        <li>
+                                            <a>Menu Item 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a>
+                            <span>
+                                Dropdown 2
+                            </span></a>
+                            <ul class="dropdown">
+                                <li>
+                                    <a>Menu Item 1</a>
+                                </li>
+                                <li>
+                                    <a>Menu Item 2</a>
+                                    <ul class="dropdown">
+                                        <li>
+                                            <a>Sub Menu Item 1</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 2</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 3</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 4</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 5</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 6</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 7</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 8</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 9</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 10</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 11</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 12</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 13</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 14</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 15</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 16</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 17</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 18</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 19</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 20</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 21</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 22</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a>Menu Item 3</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a>
+                            <span>
+                                Link 3
+                            </span></a>
+                        </li>
+                        <li class="full_width">
+                            <a>
+                            <span>
+                                Link 4
+                            </span></a>
+                            <div class="megamenu">
+                              <ul>
+                                <li>
+                                  <ul>
+                                    <li>
+                                      <img class="preview" src="https://www.jamiebalfour.com/assets/images/Favicon.png" style="display:block;width:70px;margin:5px;"/>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <ul>
+                                    <li>
+                                      <a href="jamiebalfour.com"><span>My site</span></a>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                              <div class="bottom">
+                                fsdfsd
+                              </div>
+                          </div>
+                        </li>
+                        <li>
+                            <a>
+                            <span>
+                                Dropdown 3
+                            </span></a>
+                            <ul class="dropdown">
+                                <li>
+                                    <a>Menu Item 1</a>
+                                </li>
+                                <li>
+                                    <a>Menu Item 2</a>
+                                    <ul class="dropdown">
+                                        <li>
+                                            <a>Sub Menu Item 1</a>
+                                        </li>
+                                        <li>
+                                            <a>Sub Menu Item 2</a>
+                                        </li>
+                                        <li id="test_li">
+                                            <a>Sub Menu Item 3</a>
+                                            <ul class="dropdown" id="test">
+                                                <li>
+                                                    <a href="jamiebalfour.com">Sub Menu Item 1</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 2</a>
+                                                    <ul class="dropdown">
+                                                        <li>
+                                                            <a>Even further down 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>Even further down 2</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>Even further down 3</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 3</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 4</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 5</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 6</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 7</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 8</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 9</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 10</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 11</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 12</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 13</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 14</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 15</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 16</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 17</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 18</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 19</a>
+                                                </li>
+                                                <li>
+                                                    <a>Sub Menu Item 20</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a>Menu Item 3</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu_right">
+                            <a>
+                            <span>
+                                Special dropdown 1
+                            </span></a>
+                            <ul class="dropdown no_resize">
+                                <li>
+                                    <div style="min-height: 300px; width:300px;padding:15px;">
+                                        <h2>This is a special dropdown</h2>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="main_container">
+            <h1>BalfBar</h1>
+            <h2> A bit about BalfBar... </h2>
+            <p>
+                Welcome to the page on BalfBar. At the top of this page is an example menu using BalfBar.
+            </p>
+            <p>
+                This is my lightest weight menu I have ever built and is built with SCSS so that customisation is easy!
+                You can enjoy this menu from my website at no cost.
+            </p>
+            <p>
+                My menu is designed to be similar to jQuery SmartMenus but with a different approach. My thought initially when I used SmartMenus
+                was that it was rather large. I personally used and liked the BootStrap theme, but due to the fact that it was using all of
+                the BootStrap library in the CSS files, I found that it was rather large and difficult to update.
+            </p>
+            <p>
+                I decided on the 15th of September 2015, as part of my own website restructure, I would build my own menu.
+            </p>
+            <h2> Getting started </h2>
+            <p>
+                It's so easy to get started with BalfBar now that it is fully implemented as a jQuery plugin.
+            </p>
+            <p>
+                First ensure you have jQuery 1.10 or later and a copy of the stylesheet:
+            </p>
+
+            <div class="code">
+                <div class="title">
+                    HTML
+                </div>
+                <div class="sample">
+                    <pre>
+...
+&lt;<span class="type">head</span>&gt;
+    ...
+    &lt;<span class="type">script</span> <span class="keyword">src</span>=<span class="string">&quot;http://code.jquery.com/jquery-1.10.1.min.js&quot;</span>&gt;&lt;/<span class="type">script</span>&gt;
+    &lt;<span class="type">link</span> <span class="keyword">href</span>=<span class="string">&quot;balfbar.css&quot;</span> <span class="keyword">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="keyword">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;
+    ...
+&lt;/<span class="type">head</span>&gt;
+...
+					</pre>
+                </div>
+            </div>
+            <p>
+                On the subject of stylesheets, I provide a compiled version of the style used on this sample page and indeed the one on my personal
+                website, but you most likely want to compile the SCSS file so that it works better with your website.
+            </p>
+            <p>
+                Crucially, BalfBar is lightweight.
+            </p>
+            <p>
+                I think defering until the document is ready
+                is the best way to load BalfBar, but that choice is yours. Continuing in the <code class="type"> head</code>
+                element, open a new <code class="type"> script</code>
+                and put the following code in it:
+            </p>
+            <div class="code">
+                <div class="title">
+                    JavaScript
+                </div>
+                <div class="sample">
+                    <pre>
+$(<span class="keyword">document</span>).<span class="keyword">ready</span>(<span class="keyword">function</span>(){
+    $(<span class="string">&quot;#menu&quot;</span>).BalfBar();
+});
+					</pre>
+                </div>
+            </div>
+            <p>
+                Functions are bound within the plugin to specific events which will trigger automagically. There is no need for you to change any of
+                this.
+            </p>
+            <script>
+
+
+				window.onload = function() {
+					jQuery('.balfbar').BalfBar({DesktopMenuType : "dropdown", MobileMenuType : "dropdown", DesktopFixedMenuStart : -2});
+					$('.code pre').each(function() {
+						var html = $(this).html();
+						var lines = html.split("\n");
+						var output = "";
+						var count = lines.length;
+						if (lines[lines.length] == "" || lines[lines.length] == undefined) {
+							count = lines.length - 1;
+						}
+						var individual = "";
+						if (count == 1) {
+							individual = " single";
+						}
+						for (var i = 0; i < count; i++) {
+
+							if (!lines[i].includes('<span class="line')) {
+								output += '<span class="line' + individual + '">' + lines[i].replace(/\t/g, "   ") + '</span>';
+							} else {
+								output += lines[i].replace(/\t/g, "   ");
+							}
+						}
+						$(this).html(output);
+					});
+				};
+            </script>
+        </div>
+    </body>
+    <style>
+      .balfbar {
+        max-width:1000px;
+        margin: auto;
+        left:0;
+        right:0;
+      }
+      @media only screen and (min-width: 922.1px){
+        .balfbar .menu ul.items > li > a{
+          padding: 13px 14px;
+        }
+      }
+
+</html>
