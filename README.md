@@ -5,8 +5,8 @@ I have created a JSON menu builder that builds the HTML from a JSON file, this m
 To use BalfBar, insert the HTML into the page, ensure you have the jQuery library, link the JavaScript (preferably in the `<head>` or at the very end of the page) and wait for the page to load before running `$(".balfbar").BalfBar();`. 
 
 There are several options available:
-- **desktopFixedMenuStart** : used to decide when to apply the `fixed_menu` class to the menu when in * *desktop mode* *.
-- **mobileFixedMenuStart** : used to decide when to apply the `fixed_menu` class to the menu when in * *mobile mode* *.
+- **desktopFixedMenuStart** : used to decide when to apply the `fixed_menu` class to the menu when in *desktop mode*.
+- **mobileFixedMenuStart** : used to decide when to apply the `fixed_menu` class to the menu when in *mobile mode*.
 - **supportHover** : if set to false, users will need to click on items in the menu to open them
 - **hideOnScroll** : if the menu has any open dropdowns and the user scrolls, those dropdowns will be closed
 - **hideOnMouseOut** : hides the menu when the user clicks or moves the mouse elsewhere on the page
