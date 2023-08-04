@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://www.jamiebalfour.scot/projects/wisp/balfbar/BalfBar.png" alt="BalfBar Logo" width="300">
+</p>
 BalfBar is used on several websites that I build and maintain. It's free to download from my website (https://www.jamiebalfour.scot/projects/wisp/balfbar/), but I have opted instead to host it in on GitHub.
 
 I have created a JSON menu builder that builds the HTML from a JSON file, this makes it easier to keep the menu organised. There are examples on my website.
