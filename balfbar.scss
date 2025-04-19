@@ -562,8 +562,11 @@ $right_zone_max_threshold: 'none';
   .balfbar div.megamenu.right_shift{
     margin-left:0;
   }
+  .balfbar div.megamenu.mid_shift{
+    right: -235px;
+  }
   .balfbar .menu ul.items li > ul.dropdown > li ul.dropdown {
-    position:absolute;
+    position: absolute;
     left:100%;
   }
   .balfbar .menu ul.items li > ul.dropdown > li ul.dropdown:not(.modified_top){
