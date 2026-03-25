@@ -1,11 +1,34 @@
 <p align="center">
   <img src="https://www.jamiebalfour.scot/projects/wisp/balfbar/BalfBar.png" alt="BalfBar Logo" width="300">
 </p>
-BalfBar is used on several websites that I build and maintain. It's free to download from my website (https://www.jamiebalfour.scot/projects/wisp/balfbar/), but I have opted instead to host it in on GitHub.
+BalfBar is used on several websites that I build and maintain. It's free to download from my website (https://www.jamiebalfour.scot/projects/wisp/balfbar/), but I have opted instead to host it on GitHub.
 
-I have created a JSON menu builder that builds the HTML from a JSON file, this makes it easier to keep the menu organised. There are examples on my website.
+I have created a JSON menu builder that builds the HTML from a JSON file. This makes it easier to keep the menu organised. There are examples on my website.
 
-To use BalfBar, insert the HTML into the page, ensure you have the jQuery library, link the JavaScript (preferably in the `<head>` or at the very end of the page) and wait for the page to load before running `$(".balfbar").BalfBar();`. 
+<h2>Usage</h2>
+
+<p>
+  There are now three versions, thanks to AI (I made the first jQuery version back in 2013, but AI has rewritten it for ES6 and then for ES5). Pick the version that best suits you, though I'd suggest, in this day and age, going for the ES6 version.
+</p>
+
+<h3>ES5 + ES6</h3>
+<pre>
+const menu = BalfBar.init('#mainMenu', {
+  mobileThreshold: 900
+});  
+</pre>
+
+<h3>jQuery</h3>
+
+To use BalfBar, insert the HTML into the page, ensure you have the jQuery library, link the JavaScript (preferably in the `<head>` or at the very end of the page) and wait for the page to load before running: 
+
+<pre>
+$("#mainMenu").BalfBar( {
+  mobileThreshold: 900
+});  
+</pre>
+
+<h2>Options available</h2>
 
 There are several options available:
 - **desktopFixedMenuStart** : used to decide when to apply the `fixed_menu` class to the menu when in *desktop mode*.
